@@ -4,7 +4,7 @@ describe('Login Website OrangeHRM', () => {
         cy.intercept('GET','https://opensource-demo.orangehrmlive.com/web/index.php/core/i18n/messages').as('Loginmessages')
         cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
         cy.contains('Login').should('be.visible')
-        cy.wait('@Loginmessages')
+        cy.wait('@Loginmessages').its('response.statusCode').should('be.oneOf',[200,304])
     })
 
     it('TC1.2-User Berhasil Masuk ke Dalam OrangeHRM', () => {
@@ -16,10 +16,10 @@ describe('Login Website OrangeHRM', () => {
         cy.intercept('GET','https://opensource-demo.orangehrmlive.com/web/index.php/api/v2/dashboard/shortcuts').as('shortcuts')
         cy.intercept('GET','https://opensource-demo.orangehrmlive.com/web/index.php/api/v2/dashboard/employees/locations').as('locations')
         cy.get('button[type="submit"]').click()
-        cy.wait('@locations')
-        cy.wait('@shortcuts')
-        cy.wait('@subunit')
-        cy.wait('@push')
+        cy.wait('@locations').its('response.statusCode').should('eq',200)
+        cy.wait('@shortcuts').its('response.statusCode').should('eq',200)
+        cy.wait('@subunit').its('response.statusCode').should('eq',200)
+        cy.wait('@push').its('response.statusCode').should('be.oneOf',[200, 204])
         cy.url().should('include', '/web/index.php/dashboard/index')
     })
 
@@ -60,7 +60,7 @@ describe('Login Website OrangeHRM', () => {
     })
         cy.intercept('GET','https://opensource-demo.orangehrmlive.com/web/index.php/api/v2/dashboard/employees/action-summary').as('actionsummary')
         cy.get('button[type="submit"]').click()
-        cy.wait('@actionsummary')
+        cy.wait('@actionsummary').its('response.statusCode').should('eq',200)
         cy.url().should('include', '/web/index.php/dashboard/index')
   })
 
