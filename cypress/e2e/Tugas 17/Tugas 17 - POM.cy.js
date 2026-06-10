@@ -1,4 +1,5 @@
 import Login from '../../support/PageObject/Login'
+import LoginData from '../../fixtures/LoginData'
 
 describe('Login Website OrangeHRM', () => {
     const login = new Login();
@@ -11,7 +12,7 @@ describe('Login Website OrangeHRM', () => {
     it('TC1.2 - User Berhasil Masuk ke Dalam OrangeHRM', () => {
         login.visit()
         login.interceptDashboardApis()
-        login.login('Admin', 'admin123')
+        login.login(LoginData.validUser, LoginData.validPassword)
         login.verifyDashboardApis()
         login.verifyDashboard()
     })
@@ -49,7 +50,7 @@ describe('Login Website OrangeHRM', () => {
 
     it('TC1.7 - Username & Password Salah', () => {
         login.visit()
-        login.login('Bebas', 'bebas1234')
+        login.login(LoginData.invalidUser, LoginData.invalidPassword)
         login.verifyInvalidCredentials()
     })
 
