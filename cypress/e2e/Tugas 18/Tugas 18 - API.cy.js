@@ -10,7 +10,7 @@ describe('Tugas 18 - API Testing', () => {
 
       it('TC2.2 - GET User by ID', () => {
         const userId = 1
-        cy.request('GET', `https://api.escuelajs.co/api/v1/categories/${userId}`)
+        cy.request('GET', 'https://api.escuelajs.co/api/v1/categories/${userId}')
           .then((response) => {
             expect(response.status).to.eq(200)
             expect(response.body).to.be.an('object')
@@ -21,7 +21,7 @@ describe('Tugas 18 - API Testing', () => {
       it('TC2.3 - POST Create New User', () => {
         const newUser = {
           name: 'John Doe',
-          description: 'A new category',
+          description: 'User Baru',
           image: 'https://example.com/image.jpg'
         }
         cy.request('POST', 'https://api.escuelajs.co/api/v1/categories', newUser)
@@ -38,10 +38,10 @@ describe('Tugas 18 - API Testing', () => {
         const userId = 1
         const updatedUser = {
           name: 'Jane Doe',
-          description: 'An updated category',
+          description: 'Update Category',
           image: 'https://example.com/updated-image.jpg'
         }
-        cy.request('PUT', `https://api.escuelajs.co/api/v1/categories/${userId}`, updatedUser)
+        cy.request('PUT', 'https://api.escuelajs.co/api/v1/categories/${userId}', updatedUser)
           .then((response) => {
             expect(response.status).to.eq(200)
             expect(response.body).to.be.an('object')
@@ -53,7 +53,7 @@ describe('Tugas 18 - API Testing', () => {
 
       it('TC2.5 - DELETE User', () => {
         const userId = 1
-        cy.request('DELETE', `https://api.escuelajs.co/api/v1/categories/${userId}`)
+        cy.request('DELETE', 'https://api.escuelajs.co/api/v1/categories/${userId}')
           .then((response) => {
             expect(response.status).to.eq(204)
           })
@@ -62,7 +62,7 @@ describe('Tugas 18 - API Testing', () => {
         const userId = 9999
         cy.request({
           method: 'GET',
-          url: `https://api.escuelajs.co/api/v1/categories/${userId}`,
+          url: 'https://api.escuelajs.co/api/v1/categories/${userId}',
           failOnStatusCode: false
         }).then((response) => {
           expect(response.status).to.eq(404)
@@ -71,7 +71,7 @@ describe('Tugas 18 - API Testing', () => {
       it('TC2.7 - POST Create User with Invalid Data', () => {
         const invalidUser = {
           name: '',
-          description: 'Invalid category',
+          description: 'Invalid Category',
           image: 'https://example.com/invalid-image.jpg'
         }
         cy.request({
@@ -87,12 +87,12 @@ describe('Tugas 18 - API Testing', () => {
         const userId = 9999
         const updatedUser = {
           name: 'Non-Existent User',
-          description: 'Trying to update a non-existent user',
+          description: 'Mencoba Update Non-existent User',
           image: 'https://example.com/non-existent-image.jpg'
         }
         cy.request({
           method: 'PUT',
-          url: `https://api.escuelajs.co/api/v1/categories/${userId}`,
+          url: 'https://api.escuelajs.co/api/v1/categories/${userId}',
           body: updatedUser,
           failOnStatusCode: false
         }).then((response) => {
@@ -103,7 +103,7 @@ describe('Tugas 18 - API Testing', () => {
         const userId = 9999
         cy.request({
           method: 'DELETE',
-          url: `https://api.escuelajs.co/api/v1/categories/${userId}`,
+          url: 'https://api.escuelajs.co/api/v1/categories/${userId}',
           failOnStatusCode: false
         }).then((response) => {
           expect(response.status).to.eq(404)
@@ -159,7 +159,7 @@ describe('Tugas 18 - API Testing', () => {
           }
           cy.request({
             method: 'PUT',
-            url: `https://api.escuelajs.co/api/v1/categories/${userId}`,
+            url: 'https://api.escuelajs.co/api/v1/categories/${userId}',
             body: invalidUpdate,
             failOnStatusCode: false
           }).then((response) => {
@@ -170,7 +170,7 @@ describe('Tugas 18 - API Testing', () => {
           const invalidUserId = 'invalid-id'
           cy.request({
             method: 'DELETE',
-            url: `https://api.escuelajs.co/api/v1/categories/${invalidUserId}`,
+            url: 'https://api.escuelajs.co/api/v1/categories/${invalidUserId}',
             failOnStatusCode: false
           }).then((response) => {
             expect(response.status).to.eq(400)
@@ -211,12 +211,12 @@ describe('Tugas 18 - API Testing', () => {
             description: 'A duplicate update',
             image: 'https://example.com/duplicate-update-image.jpg'
           }
-          cy.request('PUT', `https://api.escuelajs.co/api/v1/categories/${userId}`, duplicateUpdate)
+          cy.request('PUT', 'https://api.escuelajs.co/api/v1/categories/${userId}', duplicateUpdate)
             .then((response) => {
               expect(response.status).to.eq(200)
               cy.request({
                 method: 'PUT',
-                url: `https://api.escuelajs.co/api/v1/categories/${userId}`,
+                url: 'https://api.escuelajs.co/api/v1/categories/${userId}',
                 body: duplicateUpdate,
                 failOnStatusCode: false
               }).then((response) => {
@@ -226,7 +226,7 @@ describe('Tugas 18 - API Testing', () => {
         })
         it('TC2.18 - DELETE User with Valid ID', () => {
           const userId = 1
-          cy.request('DELETE', `https://api.escuelajs.co/api/v1/categories/${userId}`)
+          cy.request('DELETE', 'https://api.escuelajs.co/api/v1/categories/${userId}')
             .then((response) => {
               expect(response.status).to.eq(204)
             })
@@ -235,7 +235,7 @@ describe('Tugas 18 - API Testing', () => {
           const userId = 1
           cy.request({
             method: 'GET',
-            url: `https://api.escuelajs.co/api/v1/categories/${userId}`,
+            url: 'https://api.escuelajs.co/api/v1/categories/${userId}',
             failOnStatusCode: false
           }).then((response) => {
             expect(response.status).to.eq(404)
